@@ -964,6 +964,16 @@ boot();
     </div>
 
     <script>
+        /* ===== LEAVE/RELOAD WARNING PROMPT ===== */
+        window.addEventListener('beforeunload', function (e) {
+            try {
+                localStorage.setItem('clu_user_time_seconds', totalTimeSeconds);
+            } catch (err) {}
+            e.preventDefault();
+            e.returnValue = '';
+            return '';
+        });
+
         /* ===== ERROR SAFETY NET ===== */
         window.addEventListener('error', function(e) {
             console.error('Portal error:', e.error || e.message);
@@ -2562,6 +2572,12 @@ boot();
 
   <!-- ════════════════════════════ LAUNCHER ════════════════════════════ -->
   <script>
+    window.addEventListener('beforeunload', function (e) {
+      e.preventDefault();
+      e.returnValue = '';
+      return '';
+    });
+
     function launchInAboutBlank() {
       const newWin = window.open('about:blank', '_blank');
 
